@@ -20,6 +20,23 @@ To create a tenant, you can use the following commands:
    This command will execute the logic defined in the preprogrammed model to create the tenant and its associated domain automatically.
 
 
+Useful Commands
+===============
+docker-compose down
+docker-compose up
+docker-compose run web bash
+# python manage.py runserver 0.0.0.0:8088
+# python manage.py show_urls
+# python manage.py createsuperuser
+
+docker logs django-tenants_web
+docker ps -a
+docker-compose exec web python manage.py create_tenant
+docker-compose exec web python manage.py migrate_schemas
+docker-compose exec web python manage.py migrate
+docker container prune
+
+
 django-tenants
 ==============
 This application enables `django`_ powered websites to have multiple

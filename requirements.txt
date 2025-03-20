@@ -3,7 +3,7 @@ gunicorn==23.0.0
 coverage
 django-tenants
 Django==4.0.7
-django-extensions==3.2.*
+django-extensions==3.2.3
 psycopg2-binary==2.9.*
 python-decouple==3.6
 djangorestframework==3.13.1

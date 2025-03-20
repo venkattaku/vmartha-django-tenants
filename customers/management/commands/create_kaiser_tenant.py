@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
         # Create the domain for the tenant
         domain = Domain.objects.create(
-            domain='kaiser.test.com',
+            domain='kaiser',
             tenant=tenant,
             is_primary=True
         )

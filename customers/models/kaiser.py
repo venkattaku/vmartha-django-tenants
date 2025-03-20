@@ -6,4 +6,4 @@ Client(schema_name='kaiser',
 
 Domain(domain='kaiser.test.com',
     tenant=Client.objects.get(schema_name='kaiser'),
-    is_primary=True).save()
+    is_primary=False).save()
