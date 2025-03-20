@@ -1,27 +1,22 @@
-Creating a Tenant
-=================
-
-To create a tenant, you can use the following commands:
-
-1. **Create a Tenant Manually**:
-   Run the following command to create a tenant interactively or programmatically:
-   
-   .. code-block:: bash
-
-       python manage.py create_tenant
-
-2. **Create a Tenant with a Preprogrammed Model**:
-   If you have a predefined tenant model in `customers/models/*.py`, you can use a specific command to create the tenant. For example:
-
-   .. code-block:: bash
-
-       python manage.py create_kairos_tenant
-
-   This command will execute the logic defined in the preprogrammed model to create the tenant and its associated domain automatically.
-
-
 django-tenants
 ==============
+.. image:: https://badge.fury.io/py/django-tenants.svg
+    :target: http://badge.fury.io/py/django-tenants
+
+.. image:: https://github.com/tomturner/django-tenants/workflows/code/badge.svg
+    :alt: Build status
+    :target: https://github.com/tomturner/django-tenants/actions
+
+.. image:: https://readthedocs.org/projects/pip/badge/?version=latest
+    :target: https://django-tenants.readthedocs.io/en/latest/
+    
+.. image:: https://img.shields.io/pypi/dm/django-tenants.svg?maxAge=180
+   :target: https://pypi.org/project/django-tenants/
+   
+.. image:: https://codecov.io/gh/django-tenants/django-tenants/branch/master/graph/badge.svg?token=wCNgSgTTR8
+   :target: https://codecov.io/gh/django-tenants/django-tenants
+
+
 This application enables `django`_ powered websites to have multiple
 tenants via `PostgreSQL schemas`_. A vital feature for every
 Software-as-a-Service (SaaS) website.

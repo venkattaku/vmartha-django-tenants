@@ -1,0 +1,16 @@
+*~
+*.pyc
+*.swp
+.DS_Store
+.env
+.venv/
+.vscode/
+VERSION
+_build/
+build/
+dist/
+django_tenants.egg-info
+.idea/
+dts_test_project/*/media/*/*.txt
+django_tenants_backup/
+postgres-data/
