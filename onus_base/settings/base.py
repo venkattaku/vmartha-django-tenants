@@ -11,9 +11,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+from pathlib import Path
+
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 PROJECT_DIR = os.path.join(BASE_DIR, os.pardir)
+
+AUTH_USER_MODEL = 'onus_base.OnUsUser'
 
 TENANT_APPS_DIR = os.path.join(PROJECT_DIR, os.pardir)
 sys.path.insert(0, TENANT_APPS_DIR)
@@ -70,7 +75,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -81,6 +86,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    # os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 # List of finder classes that know how to find static files in
@@ -103,7 +109,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 MIDDLEWARE = (
     'django_tenants.middleware.TenantSubfolderMiddleware',
-    # 'onus_tenants.middleware.TenantTutorialMiddleware',
+    # 'onus_base.middleware.TenantTutorialMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -111,6 +117,7 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'hospitals.middleware.MultitenantMiddleware',
 )
 
 TEMPLATES = [
@@ -142,17 +149,19 @@ TEMPLATES = [
         },
     },
 ]
-ROOT_URLCONF = 'onus_tenants.urls_tenants'
-PUBLIC_SCHEMA_URLCONF = 'onus_tenants.urls_public'
+ROOT_URLCONF = 'onus_base.urls_tenants'
+PUBLIC_SCHEMA_URLCONF = 'onus_base.urls_public'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'onus_tenants.wsgi.application'
+WSGI_APPLICATION = 'onus_base.wsgi.application'
 
 SHARED_APPS = (
     'django_tenants',  # mandatory
-    'customers',  # you must list the app where your tenant model resides in
+    'onus_base',  # OnUs base app
+    'customers',  # OnUs customers using django-tenants library
+    'hospitals',  # OnUs hospitals using django-multitenant library
 
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

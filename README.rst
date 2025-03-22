@@ -28,6 +28,8 @@ docker-compose run web bash
 # python manage.py runserver 0.0.0.0:8088
 # python manage.py show_urls
 # python manage.py createsuperuser
+# python manage.py dbshell
+##  
 
 docker logs django-tenants_web
 docker ps -a
