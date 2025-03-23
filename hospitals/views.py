@@ -1,20 +1,20 @@
-from django.views.generic import TemplateView
 from hospitals.models import Doctor
 from django_multitenant.utils import set_current_tenant, get_current_tenant
+from django.views.generic import ListView
+from django.contrib import messages
 
-# Create your views here.
+class DoctorView(ListView):
+    model = Doctor
+    template_name = "index_doctor.html"
+    context_object_name = "doctors"
 
-class DoctorView(TemplateView):
-    template_name = "hospitals/index_doctor.html"
+    def get_queryset(self):
+        t = get_current_tenant()
+        self.extra_context = {"current_tenant": t}
+        set_current_tenant(t)
+        return Doctor.objects.filter(hospital_id=t)  # No need to explicitly filter by tenant
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        # current_tenant can be stored as a SESSION variable when a user logs in.
-        # This should be done by the app
-        t = get_current_tenant()
-        #set the tenant
-        set_current_tenant(t);
-
-        context['doctors'] = Doctor.objects.all()
+        context.update(self.extra_context)  # Merge extra_context
         return context

@@ -22,6 +22,7 @@ services:
       - .:/code:z
     ports:
       - "8088:8088"
+      - "8000:8000"
     depends_on:
       - db
     environment:

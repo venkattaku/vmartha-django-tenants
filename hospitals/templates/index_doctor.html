@@ -1,10 +1,11 @@
-{% extends "base.html" %}
+{% extends "hospitals/base.html" %}
 
+<h2>Doctors List</h2>
 {% block content %}
-    <h2>Doctors List</h2>
+    <h2>Doctors List from Hospital-{{ current_tenant }}</h2>
     <ul>
         {% for doctor in doctors %}
-            <li>{{ doctor.name }} - {{ doctor.specialization }}</li>
+            <li>{{ doctor.name }} - {{ doctor.hospital_id }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

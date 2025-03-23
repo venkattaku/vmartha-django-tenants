@@ -11,13 +11,16 @@ setup:
 	# docker-compose exec web python manage.py create_tenant
 	make migrate
 
-run:
+server:
 	docker-compose up -d --build
 
-stop:
-	docker-compose down
+run:
+	docker-compose exec web python manage.py runserver 0.0.0.0:8000
 
-restart:stop run
+stop:
+	-docker-compose down
+
+restart:stop server
 
 shell:
 	docker-compose exec web bash

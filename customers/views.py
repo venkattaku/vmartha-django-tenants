@@ -6,8 +6,11 @@ from customers.models import Client
 from random import choice
 from tenant_only.models import UploadFile
 
-from django_tenants.urlresolvers import reverse_lazy
+from onus_base.models import OnUsUser
 
+from django_tenants.urlresolvers import reverse_lazy
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class TenantView(TemplateView):
     template_name = "index_tenant.html"
@@ -26,7 +29,7 @@ class TenantViewRandomForm(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tenants_list'] = Client.objects.all()
-        context['users'] = User.objects.all()
+        context['users'] = OnUsUser.objects.all()
         return context
 
     def form_valid(self, form):

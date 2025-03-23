@@ -19,6 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 PROJECT_DIR = os.path.join(BASE_DIR, os.pardir)
 
 AUTH_USER_MODEL = 'onus_base.OnUsUser'
+MIGRATION_MODULES = {
+    'admin': 'migrations.admin_migrations',
+    'auth': 'migrations.auth_migrations',
+}
 
 TENANT_APPS_DIR = os.path.join(PROJECT_DIR, os.pardir)
 sys.path.insert(0, TENANT_APPS_DIR)
@@ -125,9 +129,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates')
-
         ],
-        # 'APP_DIRS': True,
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
@@ -141,10 +144,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'loaders': (
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ),
+            # 'loaders': (
+            #     'django.template.loaders.filesystem.Loader',
+            #     'django.template.loaders.app_directories.Loader',
+            # ),
 
         },
     },
@@ -161,7 +164,7 @@ SHARED_APPS = (
     'customers',  # OnUs customers using django-tenants library
     'hospitals',  # OnUs hospitals using django-multitenant library
 
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
