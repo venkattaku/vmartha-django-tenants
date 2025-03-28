@@ -8,9 +8,18 @@
 
 {% block instructions %}
     <p>Each tenant is on a separate schema and contains different data. Take a look at the users list of this tenant.</p>
+
+    <h4>Database Information</h4>
+    <p><strong>Engine:</strong> {{ database_engine }}</p>
+    <p><strong>Schema:</strong> {{ database_schema }}</p>
+    <h5>Tables:</h5>
+    <ul>
+      {% for table in database_tables %}
+        <li>{{ table }}</li>
+      {% endfor %}
+    </ul>
+    
     <h3>Users List</h3>
-
-
     <ul>
     <li><a href="{% url 'random_form' %}">Sample page that allow you to create random data for this tenant only</a></li>
     <li><a href="{% url 'upload_file' %}">Upload file just for this tenant</a></li>

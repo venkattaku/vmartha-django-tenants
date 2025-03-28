@@ -10,20 +10,28 @@ from onus_base.models import OnUsUser
 
 from django_tenants.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.db import connection
 User = get_user_model()
 
 class TenantView(TemplateView):
-    template_name = "index_tenant.html"
+    template_name = "customers/index_tenant.html"
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
         context['tenants_list'] = Client.objects.all()
+
+        # Add database engine, schema, and list of tables to the context
+        context['database_engine'] = connection.settings_dict['ENGINE']
+        context['database_schema'] = connection.schema_name
+        context['database_tables'] = connection.introspection.table_names()
+
         return context
 
 
 class TenantViewRandomForm(FormView):
     form_class = GenerateUsersForm
-    template_name = "random_form.html"
+    template_name = "customers/random_form.html"
     success_url = reverse_lazy('random_form')
 
     def get_context_data(self, **kwargs):
@@ -60,7 +68,7 @@ class TenantViewRandomForm(FormView):
 
 
 class TenantViewFileUploadCreate(CreateView):
-    template_name = "upload_file.html"
+    template_name = "customers/upload_file.html"
     model = UploadFile
     fields = ['filename']
     success_url = reverse_lazy('upload_file')
